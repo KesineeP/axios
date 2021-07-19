@@ -41,28 +41,16 @@ function getTodos() {
   }
   
   // SIMULTANEOUS DATA
-//   function getData() {
-//     axios.all([
-//         axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5'),
-//         axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
-//     ]).then(axios.spread((todos, posts) => showOutput(posts)))
-//     .catch(err => console.log(err))
-//   }
+  function getData() {
+    axios.all([
+        axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5'),
+        axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
+    ]).then(axios.spread((todos, posts) => showOutput(posts)))
+    .catch(err => console.log(err))
+  }
   
-//   // CUSTOM HEADERS
-//   function customHeaders() {
-//       const  config = {
-//           headers: {
-//               'Content-Type' : 'application/json',
-//               Authorization: 'someToken'
-//           }
-//       }
-//     axios.post('https://jsonplaceholder.typicode.com/todos', {
-//         title: 'New Todo',
-//         completed: false,
-//     }, config).then(res => showOutput(res))
-//     .catch(err => console.log(err))
-//   }
+  // CUSTOM HEADERS
+
   
   // TRANSFORMING REQUESTS & RESPONSES
   function transformResponse() {
