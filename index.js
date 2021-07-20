@@ -12,8 +12,9 @@ function getTodos() {
     //     }
     // }).then(res => showOutput(res))
     // .catch(err => console.log(err))
+    
     axios
-    .get('https://jsonplaceholder.typicode.com/todos?_limit=5')
+    .get('https://jsonplaceholder.typicode.com/todos?_limit=5', {timeout: 5000})
     .then(res => showOutput(res))
     .catch(err => console.log(err))
   }
@@ -108,7 +109,22 @@ function getTodos() {
   
   // CANCEL TOKEN
   function cancelToken() {
-    console.log('Cancel Token');
+    const source = axios.CancelToken.source();
+
+
+    axios
+    .get('https://jsonplaceholder.typicode.com/todos?_limit=5', {
+        cancelToken: source.token
+    })
+    .then(res => showOutput(res))
+    .catch(thrown => {
+        if(axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        }
+    });
+    if(true) {
+        source.cancel('Request canceled!')
+    }
   }
   
   // INTERCEPTING REQUESTS & RESPONSES
@@ -120,8 +136,12 @@ function getTodos() {
   }
 
   // AXIOS INSTANCES
+  const axiosInstance = axios.create({
+      baseURL: 'https://jsonplaceholder.typicode.com'
+  })
+//   axiosInstance.get('/comments').then(res => showOutput(res))
   
-  // Show output in browser
+// Show output in browser
   function showOutput(res) {
     document.getElementById('res').innerHTML = `
     <div class="card card-body mb-4">
